@@ -30,30 +30,21 @@ public class EmployeeRepositoryTests {
     @Order(1)
     @Rollback(value = false)
     public void saveEmployeeTest(){
-
         Employee employee = new Employee("ria","jain","ria@gmail.com");
-
         employeeRepository.save(employee);
-
         Assertions.assertThat(employee.getId()).isGreaterThan(0);
     }
-
     @Test
     @Order(2)
     public void getEmployeeTest(){
-
         Employee employee = employeeRepository.findById(1L).get();
-
         Assertions.assertThat(employee.getId()).isEqualTo(1L);
-
     }
 
     @Test
     @Order(3)
     public void getListOfEmployeesTest(){
-
         List<Employee> employees = employeeRepository.findAll();
-
         Assertions.assertThat(employees.size()).isGreaterThan(0);
 
     }
@@ -62,36 +53,24 @@ public class EmployeeRepositoryTests {
     @Order(4)
     @Rollback(value = false)
     public void updateEmployeeTest(){
-
         Employee employee = employeeRepository.findById(1L).get();
-
-        employee.setEmailId("ram@gmail.com");
-
+        employee.setEmailId("rishi@gmail.com");
         Employee employeeUpdated =  employeeRepository.save(employee);
-
-        Assertions.assertThat(employeeUpdated.getEmailId()).isEqualTo("ram@gmail.com");
-
+        Assertions.assertThat(employeeUpdated.getEmailId()).isEqualTo("rishi@gmail.com");
     }
 
     @Test
     @Order(5)
     @Rollback(value = false)
     public void deleteEmployeeTest(){
-
         Employee employee = employeeRepository.findById(1L).get();
-
         employeeRepository.delete(employee);
-
-        //employeeRepository.deleteById(1L);
-
         Employee employee1 = null;
-
-        Optional<Employee> optionalEmployee = employeeRepository.findByEmailId("ram@gmail.com");
+        Optional<Employee> optionalEmployee = employeeRepository.findByEmailId("rishi@gmail.com");
 
         if(optionalEmployee.isPresent()){
             employee1 = optionalEmployee.get();
         }
-
         Assertions.assertThat(employee1).isNull();
     }
 
